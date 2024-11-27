@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  token_auth_service:
+    build:
+      context: ./token_auth_service
+      dockerfile: Dockerfile.dockerfile
+    image: token_auth_service
+    container_name: token_auth_service
+    ports:
+      - "8080:8080"
+    environment:
+      - FLASK_ENV=development
+    volumes:
+      - token_auth_volume:/data
+
+  username_password_service:
+    build:
+      context: ./username_password_service
+      dockerfile: Dockerfile.dockerfile
+    image: username_password_service
+    container_name: username_password_service
+    ports:
+      - "8081:8081"
+    environment:
+      - FLASK_ENV=development
+    volumes:
+      - username_password_volume:/data
+
+volumes:
+  token_auth_volume:
+  username_password_volume:
